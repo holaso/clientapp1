@@ -51,6 +51,22 @@
     <body>
         <h1>Dummy Platform SDK</h1>
 
+        <form class="form-horizontal container-fluid">
+            <div class="form-group">
+                <label for="title" class="col-sm-1 control-label">Phone number</label>
+                <div class="col-sm-11">
+                    <input type="text" class="form-control" id="title" placeholder="Message Title">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-1 col-sm-11">
+                    <button type="submit" class="btn btn-primary send-toast">Send Toast</button>
+                </div>
+            </div>
+        </form>
+
+
+
         <script type="text/javascript">$(function () {
             const clientId = '0af34fcd-b995-4d32-8667-4b9a2b8be720';
             const redirectUri = 'https://holaso.github.io/clientapp1/platform1.html';
@@ -135,9 +151,9 @@
               setupGenesysClients()
               .then(() => { 
                 // Display values to the page
-                document.getElementById('span_environment').innerText = environment;
-                document.getElementById('span_language').innerText = language;
-                document.getElementById('span_name').innerText = userDetails.name;
+                //document.getElementById('span_environment').innerText = environment;
+                //document.getElementById('span_language').innerText = language;
+                document.getElementById('title').innerText = userDetails.name;
 
                 console.log('Finished setup.');
               })
