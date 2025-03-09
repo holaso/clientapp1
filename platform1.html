@@ -131,10 +131,11 @@
                   }
 
                   //myClientApp.alerting.showToastPopup($titleField.val(), $msgField.val(), options);
-                  client.loginImplicitGrant(clientId, redirectUri)
+                  return client.loginImplicitGrant(clientId, redirectUri)
 
                     .then(data => conversationsApi.postConversationsCallbacks(body)
                     .then((data) => {
+                        conversationData = data;
                         console.log(`postConversationsCallbacks success! data: ${JSON.stringify(data, null, 2)}`);
                     })
                     .catch((err) => {
@@ -189,7 +190,7 @@
                 // Display values to the page
                 //document.getElementById('span_environment').innerText = environment;
                 //document.getElementById('span_language').innerText = language;
-                //document.getElementById('title').innerText = userDetails.name;
+                document.getElementById('title').innerText = conversationData.conversation.id;
 
                 console.log('Finished setup.');
               })
