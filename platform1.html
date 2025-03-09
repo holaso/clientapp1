@@ -89,6 +89,14 @@
               const platformClient = require('platformClient');
               const client = platformClient.ApiClient.instance;
               const usersApi = new platformClient.UsersApi();
+              const conversationsApi = new platformClient.ConversationsApi();
+
+              let body = {
+                "callbackNumbers": [
+                    "56911112222"
+                ],
+                "queueId": "cac7501e-2662-4fc2-b903-a07655bf7578"
+              }; // Object | Callback
 
               // Configure Client App
               let ClientApp = window.purecloud.apps.ClientApp;
@@ -103,18 +111,22 @@
 
               return client.loginImplicitGrant(clientId, redirectUri)
 
-
-                .then(data =>  usersApi.getUsersMe())
-                .then(data => {
-                  userDetails = data;
-
-                  myClientApp.alerting.showToastPopup(
-                    `Hi ${userDetails.name}`, 
-                    'Never gonna give you up, never gonna let you down 😊');
+                .then(data => conversationsApi.postConversationsCallbacks(body)
+                .then((data) => {
+                    console.log(`postConversationsCallbacks success! data: ${JSON.stringify(data, null, 2)}`);
                 })
-                .catch(err => console.log(err));
+                .catch((err) => {
+                    console.log('There was a failure calling postConversationsCallbacks');
+                    console.error(err);
+                }));
 
             }
+
+
+
+
+
+
 
             /**
              * Assign the language and environment for the app first through
