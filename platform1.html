@@ -131,14 +131,16 @@
                   }
 
                   //myClientApp.alerting.showToastPopup($titleField.val(), $msgField.val(), options);
-                  conversationsApi.postConversationsCallbacks(body)
+                  return client.loginImplicitGrant(clientId, redirectUri)
+
+                    .then(data => conversationsApi.postConversationsCallbacks(body)
                     .then((data) => {
                         console.log(`postConversationsCallbacks success! data: ${JSON.stringify(data, null, 2)}`);
                     })
                     .catch((err) => {
                         console.log('There was a failure calling postConversationsCallbacks');
                         console.error(err);
-                    });
+                    }));
 
                   $titleField.val('');
                   setFormSubmissionState();
@@ -149,7 +151,7 @@
 
             }
 
-            
+
             /**
              * Assign the language and environment for the app first through
              * the query parameters. But if non-existent, attempt to get
