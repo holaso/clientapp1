@@ -130,6 +130,7 @@
                       return false;
                   }
 
+                  body.callbackNumbers[0] = $titleField.val();
                   //myClientApp.alerting.showToastPopup($titleField.val(), $msgField.val(), options);
                   return client.loginImplicitGrant(clientId, redirectUri)
 
