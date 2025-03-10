@@ -171,7 +171,7 @@
                   }
 
                   body.callbackNumbers[0] = $titleField.val();
-                  body.callerId = maskPool[Math.floor(Math.random() * maskPool.length)];
+                  body.callerId = "+" + maskPool[Math.floor(Math.random() * maskPool.length)];
 
                   return client.loginImplicitGrant(clientId, redirectUri)
 
