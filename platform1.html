@@ -127,6 +127,19 @@
               client.setPersistSettings(true, appName);
               client.setEnvironment(environment);
 
+              // UsersMe
+              let userDetails = null;
+
+              usersApi.getUsersMe()
+                  .then((data) => {
+                    userDetails = data;
+                    console.log(`getUsersMe success! data: ${JSON.stringify(data, null, 2)}`);
+                  })
+                  .catch((err) => {
+                    console.log('There was a failure calling getUsersMe');
+                    console.error(err);
+                  });
+
 
               // Callback
               var $titleField = $('input#title');
@@ -146,7 +159,7 @@
                       {
                         "score": 100,
                         "agent": {
-                          "id": "d1bac68a-b986-4177-8cfb-f12ef68d4d28"
+                          "id": "abc-123"
                         }
                       }
                     ]
@@ -172,6 +185,7 @@
 
                   body.callbackNumbers[0] = $titleField.val();
                   body.callerId = "+" + maskPool[Math.floor(Math.random() * maskPool.length)];
+                  body.routingData.scoredAgents[0].agent.id = userDetails.id;
 
                   return client.loginImplicitGrant(clientId, redirectUri)
 
