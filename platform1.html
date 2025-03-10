@@ -127,22 +127,6 @@
               client.setPersistSettings(true, appName);
               client.setEnvironment(environment);
 
-              // UsersMe
-              let userDetails = null;
-
-              function getUserId () {
-                return client.loginImplicitGrant(clientId, redirectUri)
-
-                .then(data => usersApi.getUsersMe()
-                .then((data) => {
-                    console.log(`getUsersMe success! data: ${JSON.stringify(data, null, 2)}`);
-                })
-                .catch((err) => {
-                    console.log('There was a failure calling getUsersMe');
-                    console.error(err);
-                }));
-              }
-
 
               // Callback
               var $titleField = $('input#title');
@@ -186,23 +170,39 @@
                       return false;
                   }
 
-                  userDetails = getUserId();
-                  console.log(`getUserId success! data: ${JSON.stringify(userDetails, null, 2)}`);
-                  body.callbackNumbers[0] = $titleField.val();
-                  body.callerId = "+" + maskPool[Math.floor(Math.random() * maskPool.length)];
-                  //body.routingData.scoredAgents[0].agent.id = userDetails.id;
 
-                  return client.loginImplicitGrant(clientId, redirectUri)
+                // UsersMe
+                let userDetails = null;
 
-                    .then(data => conversationsApi.postConversationsCallbacks(body)
-                    .then((data) => {
+                return client.loginImplicitGrant(clientId, redirectUri)
+
+                  .then(data => usersApi.getUsersMe()
+                  .then((data) => {
+                    userDetails = data
+                    console.log(`getUsersMe success! data: ${JSON.stringify(data, null, 2)}`);
+
+                    body.callbackNumbers[0] = $titleField.val();
+                    body.callerId = "+" + maskPool[Math.floor(Math.random() * maskPool.length)];
+                    body.routingData.scoredAgents[0].agent.id = userDetails.id;
+
+                    return client.loginImplicitGrant(clientId, redirectUri)
+
+                      .then(data => conversationsApi.postConversationsCallbacks(body)
+                      .then((data) => {
                         conversationData = data;
                         console.log(`postConversationsCallbacks success! data: ${JSON.stringify(data, null, 2)}`);
-                    })
-                    .catch((err) => {
+                      })
+                      .catch((err) => {
                         console.log('There was a failure calling postConversationsCallbacks');
                         console.error(err);
-                    }));
+                      }));
+
+                  })
+                  .catch((err) => {
+                    console.log('There was a failure calling getUsersMe');
+                    console.error(err);
+                  }));
+
 
                   $titleField.val('');
                   setFormSubmissionState();
