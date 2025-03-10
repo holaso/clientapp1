@@ -135,7 +135,6 @@
 
                 .then(data => usersApi.getUsersMe()
                 .then((data) => {
-                    userDetails = data;
                     console.log(`getUsersMe success! data: ${JSON.stringify(data, null, 2)}`);
                 })
                 .catch((err) => {
@@ -187,7 +186,7 @@
                       return false;
                   }
 
-                  getUserId();
+                  userDetails = getUserId();
                   body.callbackNumbers[0] = $titleField.val();
                   body.callerId = "+" + maskPool[Math.floor(Math.random() * maskPool.length)];
                   body.routingData.scoredAgents[0].agent.id = userDetails.id;
