@@ -187,9 +187,10 @@
                   }
 
                   userDetails = getUserId();
+                  console.log(`getUserId success! data: ${JSON.stringify(userDetails, null, 2)}`);
                   body.callbackNumbers[0] = $titleField.val();
                   body.callerId = "+" + maskPool[Math.floor(Math.random() * maskPool.length)];
-                  body.routingData.scoredAgents[0].agent.id = userDetails.id;
+                  //body.routingData.scoredAgents[0].agent.id = userDetails.id;
 
                   return client.loginImplicitGrant(clientId, redirectUri)
 
