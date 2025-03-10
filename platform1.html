@@ -130,7 +130,8 @@
               // UsersMe
               let userDetails = null;
 
-              return client.loginImplicitGrant(clientId, redirectUri)
+              function getUserId () {
+                return client.loginImplicitGrant(clientId, redirectUri)
 
                 .then(data => usersApi.getUsersMe()
                 .then((data) => {
@@ -141,6 +142,7 @@
                     console.log('There was a failure calling getUsersMe');
                     console.error(err);
                 }));
+              }
 
 
               // Callback
@@ -185,6 +187,7 @@
                       return false;
                   }
 
+                  getUserId();
                   body.callbackNumbers[0] = $titleField.val();
                   body.callerId = "+" + maskPool[Math.floor(Math.random() * maskPool.length)];
                   body.routingData.scoredAgents[0].agent.id = userDetails.id;
@@ -248,7 +251,7 @@
                 // Display values to the page
                 //document.getElementById('span_environment').innerText = environment;
                 //document.getElementById('span_language').innerText = language;
-                document.getElementById('title').innerText = conversationData.conversation.id;
+                //document.getElementById('title').innerText = conversationData.conversation.id;
 
                 console.log('Finished setup.');
               })
