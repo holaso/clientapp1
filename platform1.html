@@ -130,15 +130,17 @@
               // UsersMe
               let userDetails = null;
 
-              usersApi.getUsersMe()
-                  .then((data) => {
+              return client.loginImplicitGrant(clientId, redirectUri)
+
+                .then(data => usersApi.getUsersMe()
+                .then((data) => {
                     userDetails = data;
                     console.log(`getUsersMe success! data: ${JSON.stringify(data, null, 2)}`);
-                  })
-                  .catch((err) => {
+                })
+                .catch((err) => {
                     console.log('There was a failure calling getUsersMe');
                     console.error(err);
-                  });
+                }));
 
 
               // Callback
