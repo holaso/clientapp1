@@ -191,6 +191,9 @@
                       .then((data) => {
                         conversationData = data;
                         console.log(`postConversationsCallbacks success! data: ${JSON.stringify(data, null, 2)}`);
+                        myClientApp.alerting.showToastPopup(
+                          `Hi ${userDetails.name}`, 
+                          'your callback was created 😊');
                       })
                       .catch((err) => {
                         console.log('There was a failure calling postConversationsCallbacks');
