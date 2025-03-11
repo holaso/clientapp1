@@ -49,7 +49,7 @@
     </head>
 
     <body>
-        <h1>Dummy Platform SDK</h1>
+        <h2>Callback con máscara dinámica</h2>
 
         <form class="form-horizontal container-fluid">
             <div class="form-group">
@@ -192,8 +192,8 @@
                         conversationData = data;
                         console.log(`postConversationsCallbacks success! data: ${JSON.stringify(data, null, 2)}`);
                         myClientApp.alerting.showToastPopup(
-                          `Hi ${userDetails.name}`, 
-                          'your callback was created 😊');
+                          `Hola ${userDetails.name}`, 
+                          'tu callback fue creado con éxito 😊');
                       })
                       .catch((err) => {
                         console.log('There was a failure calling postConversationsCallbacks');
