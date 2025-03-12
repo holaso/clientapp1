@@ -131,7 +131,7 @@
               // Callback
               var $titleField = $('input#title');
 
-              let conversationId = "conversationId_example"; // String | conversationId
+              //let conversationId = "conversationId_example"; // String | conversationId
               let body = {
   "phoneNumber": "56223800256",
   "callerId": "56947463606",
@@ -173,7 +173,7 @@
 
                     return client.loginImplicitGrant(clientId, redirectUri)
 
-                      .then(data => conversationsApi.postConversationsCall(conversationId, body)
+                      .then(data => conversationsApi.postConversationsCalls(body)
                       .then((data) => {
                         conversationData = data;
                         console.log(`postConversationsCallbacks success! data: ${JSON.stringify(data, null, 2)}`);
