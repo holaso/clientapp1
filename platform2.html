@@ -131,6 +131,7 @@
               // Callback
               var $titleField = $('input#title');
 
+              let conversationId = "conversationId_example"; // String | conversationId
               let body = {
   "phoneNumber": "56223800256",
   "callerId": "56947463606",
@@ -166,13 +167,13 @@
                     userDetails = data
                     console.log(`getUsersMe success! data: ${JSON.stringify(data, null, 2)}`);
 
-                    //body.callbackNumbers[0] = $titleField.val();
-                    //body.callerId = "+" + maskPool[Math.floor(Math.random() * maskPool.length)];
+                    body.phoneNumber = $titleField.val();
+                    body.callerId = "+" + maskPool[Math.floor(Math.random() * maskPool.length)];
                     //body.routingData.scoredAgents[0].agent.id = userDetails.id;
 
                     return client.loginImplicitGrant(clientId, redirectUri)
 
-                      .then(data => conversationsApi.postConversationsCall(body)
+                      .then(data => conversationsApi.postConversationsCall(conversationId, body)
                       .then((data) => {
                         conversationData = data;
                         console.log(`postConversationsCallbacks success! data: ${JSON.stringify(data, null, 2)}`);
