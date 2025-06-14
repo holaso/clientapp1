@@ -49,7 +49,7 @@
     </head>
 
     <body>
-        <h2>Callback con máscara dinámica</h2>
+        <h2>Callback con máscara v1</h2>
 
         <form class="form-horizontal container-fluid">
             <div class="form-group">
@@ -74,11 +74,13 @@
             const appName = 'sample_app';
             const qParamLanguage = 'language';
             const qParamEnvironment = 'environment';
+            const qParamQueueId = 'queueId';
 
             // Default values are assigned but values should 
             // be set on the function 'assignConfiguration'
             let language = 'en-us';
-            let environment = 'mypurecloud.com'; 
+            let environment = 'mypurecloud.com';
+            let queueId = 'cac7501e-2662-4fc2-b903-a07655bf7578'; 
 
             let userDetails = null;
             let maskPool = ["56947463606",
@@ -241,6 +243,14 @@
                 let local_env = localStorage.getItem(`${appName}_environment`);
                 if(local_env) environment = local_env;
               }
+
+              if(searchParams.has(qParamQueueId)){
+                queueId = searchParams.get(qParamQueueId);
+                localStorage.setItem(`${appName}_queueId`, queueId);
+              } else {
+                let local_env = localStorage.getItem(`${appName}_queueId`);
+                if(local_env) queueId = local_env;
+              }
             }
 
             // After page loads...
@@ -248,6 +258,7 @@
               assignConfiguration();
               console.log(`environment: ${environment}`);
               console.log(`language: ${language}`);
+              console.log(`queueId: ${queueId}`);
 
               setupGenesysClients()
               .then(() => { 
